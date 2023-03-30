@@ -42,6 +42,7 @@ const optimisticEtherscanApiKey = requireEnv(process.env.OPTIMISTIC_ETHERSCAN_AP
 const ozApiKey = requireEnv(process.env.OPENZEPPELIN_API_KEY, "OPENZEPPELIN_API_KEY");
 const ozSecretKey = requireEnv(process.env.OPENZEPPELIN_SECRET_KEY, "OPENZEPPELIN_SECRET_KEY");
 
+const cantoTestnetPrivateKey = requireEnv(process.env.CANTO_PRIVATE_KEY, "CANTO_PRIVATE_KEY");
 /**
  * Maps a key to the chain ID
  * - Make sure the key matches the Infura subdomain
@@ -55,18 +56,31 @@ const chainIds = {
   // Optimism: https://docs.infura.io/infura/networks/optimism/how-to/choose-a-network
   "optimism-mainnet": 10,
   "optimism-goerli": 420,
+  cantoTestnet: 7701,
 };
 
 function getChainConfig(chain: keyof typeof chainIds) {
-  const jsonRpcUrl = "https://" + chain + ".infura.io/v3/" + infuraApiKey;
+  let url;
+  let accounts;
+
+  switch (chain) {
+    case "cantoTestnet":
+      url = "https://canto-testnet.plexnode.wtf";
+      accounts = [cantoTestnetPrivateKey];
+      break;
+    default:
+      url = "https://" + chain + ".infura.io/v3/" + infuraApiKey;
+      accounts = {
+        count: 10,
+        mnemonic,
+        path: "m/44'/60'/0'/0",
+      };
+  }
+
   return {
-    accounts: {
-      count: 10,
-      mnemonic,
-      path: "m/44'/60'/0'/0",
-    },
+    accounts,
     chainId: chainIds[chain],
-    url: jsonRpcUrl,
+    url,
   };
 }
 
@@ -109,6 +123,7 @@ const config: HardhatUserConfig = {
       ...getChainConfig("optimism-mainnet"),
       url: alchemyOptimismUrl,
     },
+    cantoTestnet: getChainConfig("cantoTestnet"),
   },
   paths: {
     cache: "./cache_hardhat", // Use a different cache for Hardhat than Foundry

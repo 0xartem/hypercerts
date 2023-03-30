@@ -18,6 +18,9 @@ For more details, check out our [website](https://hypercerts.org/).
   - On Optimism:
     - HypercertMinter (UUPS Proxy): [0x822F17A9A5EeCFd66dBAFf7946a8071C265D1d07](https://optimistic.etherscan.io/address/0x822F17A9A5EeCFd66dBAFf7946a8071C265D1d07)
     - Safe multi-sig: [0x560adA72a80b4707e493cA8c3B7B7528930E7Be5](https://optimistic.etherscan.io/address/0x560adA72a80b4707e493cA8c3B7B7528930E7Be5)
+  - On Canto Testnet:
+    - HypercertMinter (UUPS Proxy): [0x0897a79bc806681Bf228F4741bd53c3d2E84587D](https://testnet.tuber.build/address/0x0897a79bc806681Bf228F4741bd53c3d2E84587D)
+    - Hypercer Impl: [0x7ae3772901ea231949423089d324f1c088172C5e](https://testnet.tuber.build/address/0x7ae3772901ea231949423089d324f1c088172C5e)
 - `/cors-proxy`: CORS proxy for Cloudflare Workers
   - [via GitHub actions](https://github.com/hypercerts-org/hypercerts/actions/workflows/deploy-cors-proxy.yml)
 - `/defender`: OpenZeppelin Defender integration
